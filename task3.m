@@ -1,6 +1,6 @@
 function C_value = task3()
     p = 1;
-    C = [2.1:0.01:2.5 2.6:0.1:5];
+    C = 1:0.01:5;
     train = load('train.mat');
     test = load('test.mat');
     train_size = size(train.train_data, 2);
