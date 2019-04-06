@@ -4,7 +4,7 @@ function label = task1_hard_margin_linear_kernel(data)
     mean_value = mean(train.train_data, 2);
     sd = std(train.train_data, 0, 2);
     train_data = (train.train_data - mean_value) ./ sd;
-    
+
     train_label = train.train_label;
     train_size = size(train_data, 2);
     % calculate H
