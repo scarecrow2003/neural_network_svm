@@ -26,21 +26,15 @@ function label = task1_hard_margin_linear_kernel(data)
     alpha = quadprog(H, f, [], [], Aeq, beq, lb, ub, x0, options);
     % calcuate w
     w = (sum(alpha .* train_label .* train_data', 1))';
-    % get the first support vector index
-    sv_index = 0;
-    for i = 1:train_size
-        if alpha(i) > 1e-4
-            sv_index = i;
-            break;
-        end
-    end
+    % get a support vector index
+    [~, sv_index] = max(alpha);
     % use support vector to calculate b
     b = 1 / train_label(sv_index) - w' * train_data(:, sv_index);
     
     % standardize the data
-    data = (data - mean_value) ./ sd;
+    standardize_data = (data - mean_value) ./ sd;
     % calculate g(x)
-    gx = w' * data + b;
+    gx = w' * standardize_data + b;
     label = zeros(1, size(gx, 2));
     label(gx > 0) = 1;
     label(gx <= 0) = -1;
